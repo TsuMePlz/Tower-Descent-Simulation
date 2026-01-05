@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MHA - Tower Descent Simulation</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- TOP: Image Display Area (Zone Background / Enemy) -->
+        <div class="image-area" id="imageArea">
+            <img id="displayImage" src="" alt="Game Image" class="game-image">
+            
+            <!-- Bottom Overlay - Shows Zone info OR Enemy stats during combat -->
+            <div class="image-overlay" id="imageOverlay">
+                <div id="zoneInfo">Zone 1 - Forest</div>
+                <div id="enemyInfo" class="hidden">
+                    <div class="enemy-combat-header">
+                        <span class="enemy-name-combat" id="enemyNameCombat">Villain Thug</span>
+                        <span class="enemy-level-combat" id="enemyLevelCombat">Level 5</span>
+                    </div>
+                    <div class="enemy-hp-bar-combat">
+                        <div class="stat-bar hp-bar">
+                            <div class="stat-fill hp-fill" id="enemyHpFillCombat" style="width: 100%"></div>
+                            <span class="stat-text" id="enemyHpTextCombat">60/60</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIDDLE: Text Display Area -->
+        <div class="text-area" id="textArea">
+            <div class="text-content" id="textContent">
+                <p class="game-text">Welcome to U.A. High School Training Facility...</p>
+                <p class="game-text">Loading game...</p>
+            </div>
+            
+            <!-- Character/Enemy Stats Bar (shown during combat/exploration) -->
+            <div class="stats-bar hidden" id="statsBar">
+                <div class="character-stats">
+                    <div class="stat-name" id="charName">Izuku Midoriya</div>
+                    <div class="stat-bars">
+                        <div class="stat-row">
+                            <span class="stat-label">HP</span>
+                            <div class="stat-bar hp-bar">
+                                <div class="stat-fill hp-fill" id="charHpFill" style="width: 100%"></div>
+                                <span class="stat-text" id="charHpText">100/100</span>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">EN</span>
+                            <div class="stat-bar energy-bar">
+                                <div class="stat-fill energy-fill" id="charEnergyFill" style="width: 100%"></div>
+                                <span class="stat-text" id="charEnergyText">50/50</span>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">💎</span>
+                            <span class="stat-text inventory-count" id="inventoryCount">Items: 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM: Input/Action Area -->
+        <div class="input-area" id="inputArea">
+            <div class="input-prompt" id="inputPrompt">
+                What will you do?
+            </div>
+            
+            <div class="input-controls">
+                <input type="text" 
+                       id="userInput" 
+                       class="text-input" 
+                       placeholder="Type your choice..."
+                       autocomplete="off">
+                <button class="submit-button" id="submitButton">
+                    ➤
+                </button>
+            </div>
+            
+            <!-- Quick action buttons (shown contextually) -->
+            <div class="action-buttons hidden" id="actionButtons">
+                <!-- Buttons will be added dynamically -->
+            </div>
+            
+            <!-- Zone/Progress indicator -->
+            <div class="progress-bar">
+                <span class="progress-text" id="progressText">Zone 1/20 - Room 1/5</span>
+                <span class="students-text" id="studentsText">Active: 20/20</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Screen Overlay -->
+    <div class="start-overlay" id="startOverlay">
+        <div class="start-content">
+            <button class="start-button" id="startButton">START GAME</button>
+            <button class="start-button secondary" id="continueButton" disabled>CONTINUE</button>
+            <button class="start-button secondary" id="tutorialButton">TUTORIAL</button>
+            <div class="start-info">
+                <p>Descend 20 zones deep • 21 students</p>
+                <p>Desktop or Mobile • 9:16 optimized</p>
+                <p class="save-info">💾 Auto-saves after each zone</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial Overlay -->
+    <div class="tutorial-overlay" id="tutorialOverlay" style="display: none;">
+        <div class="tutorial-content">
+            <h2 style="color: #d4af37; margin-bottom: 20px;">📖 HOW TO PLAY</h2>
+            <div style="max-height: 70vh; overflow-y: auto; padding-right: 10px;">
+                <h3>🎯 OBJECTIVE</h3>
+                <p>Descend through 20 zones and defeat All For One!</p>
+                
+                <h3>⚔️ COMBAT</h3>
+                <p>• Attack - Basic damage<br>
+                • Quirk - Powerful abilities (costs energy)<br>
+                • Items - Health/Energy from inventory<br>
+                • Team-Up - Massive damage (Level 10+ required)<br>
+                • Plus Ultra - Full recovery (once per zone)</p>
+                
+                <h3>🗺️ EXPLORATION</h3>
+                <p>• Navigate rooms to find the boss<br>
+                • SEARCH - Find items, civilians, captured students<br>
+                • REST - Restore 15 energy (once per room)<br>
+                • Boss rooms marked with ⚠️</p>
+                
+                <h3>📊 CHARACTER ROLES</h3>
+                <p>• TANKS - High survivability (Kirishima, Todoroki)<br>
+                • DAMAGE - High attack (Sato, Bakugo, Ojiro)<br>
+                • SCOUTS - Find POI (Hagakure, Iida, Sero)<br>
+                • SUPPORT - Buffs & utility (Uraraka, Asui, Mina)</p>
+                
+                <h3>💀 CAPTURE SYSTEM</h3>
+                <p>• Lose all HP → Character CAPTURED<br>
+                • Personal skills reset when captured<br>
+                • Can rescue captured students at POI<br>
+                • All For One gets stronger per capture</p>
+                
+                <h3>💡 TIPS</h3>
+                <p>• Benched characters heal passively<br>
+                • Boss HP persists between attempts<br>
+                • Zone environments affect stats<br>
+                • Invest in global skills early</p>
+            </div>
+            <button class="start-button" id="closeTutorialButton">BACK</button>
+        </div>
+    </div>
+
+    <script src="/static/js/game_full.js"></script>
+</body>
+</html>

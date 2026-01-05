@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Descent Simulation - Official Player Guide</title>
+    <style>
+        @page {
+            margin: 1in;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f5f5f5;
+        }
+
+        .guide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* cover page */
+        .cover {
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
+            page-break-after: always;
+        }
+
+        .cover h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+
+        .cover .subtitle {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
+
+        .cover .tagline {
+            font-size: 1.2em;
+            margin-bottom: 60px;
+            color: #aaa;
+        }
+
+        .cover .edition {
+            font-size: 1.1em;
+            color: #d4af37;
+            margin-top: 80px;
+            border-top: 2px solid #d4af37;
+            padding-top: 20px;
+        }
+
+        .placeholder-cover-image {
+            width: 400px;
+            height: 300px;
+            background: repeating-linear-gradient(
+                45deg,
+                #2a2a3e,
+                #2a2a3e 20px,
+                #3a3a4e 20px,
+                #3a3a4e 40px
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto;
+            border: 3px solid #d4af37;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        /* table of contents */
+        .toc {
+            padding: 60px;
+            page-break-after: always;
+        }
+
+        .toc h2 {
+            font-size: 2.5em;
+            color: #d4af37;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .toc-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dotted #ccc;
+            font-size: 1.1em;
+        }
+
+        .toc-entry:hover {
+            background: #f9f9f9;
+        }
+
+        .toc-entry .title {
+            color: #2c3e50;
+        }
+
+        .toc-entry .page {
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .toc-section {
+            margin-top: 30px;
+        }
+
+        .toc-section-title {
+            font-size: 1.4em;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* content sections */
+        .section {
+            padding: 60px;
+            page-break-before: always;
+        }
+
+        .section h2 {
+            font-size: 2.5em;
+            color: #d4af37;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section h3 {
+            font-size: 1.8em;
+            color: #4ecdc4;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .section h4 {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .section ul, .section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .section li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        /* info boxes */
+        .info-box {
+            background: #e8f4f8;
+            border-left: 5px solid #4ecdc4;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .tip-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .box-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* character table */
+        .character-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+        }
+
+        .character-table th {
+            background: #d4af37;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .character-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .character-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .character-table .role-tank { color: #8b4513; font-weight: bold; }
+        .character-table .role-damage { color: #dc3545; font-weight: bold; }
+        .character-table .role-scout { color: #6c757d; font-weight: bold; }
+        .character-table .role-support { color: #28a745; font-weight: bold; }
+
+        /* placeholder images */
+        .placeholder-image {
+            width: 100%;
+            height: 250px;
+            background: repeating-linear-gradient(
+                45deg,
+                #f0f0f0,
+                #f0f0f0 20px,
+                #e0e0e0 20px,
+                #e0e0e0 40px
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            color: #999;
+            font-size: 1.1em;
+            font-style: italic;
+        }
+
+        .placeholder-small {
+            width: 200px;
+            height: 150px;
+            float: right;
+            margin: 0 0 20px 20px;
+        }
+
+        /* strategy callout */
+        .strategy {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border: 2px solid #d4af37;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .strategy-title {
+            font-size: 1.4em;
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .guide-container {
+                box-shadow: none;
+            }
+            .section, .toc, .cover {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <!-- cover page -->
+        <div class="cover">
+            <h1>Tower Descent Simulation</h1>
+            <p class="subtitle">Official Player Guide</p>
+            <p class="tagline">U.A. High School Training Exercise</p>
+            
+            <div class="placeholder-cover-image">
+                placeholder cover artwork<br>
+                heroic class 1a pose
+            </div>
+            
+            <p class="edition">First Edition | by TsuMePlz</p>
+        </div>
+
+        <!-- table of contents -->
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            
+            <div class="toc-section">
+                <div class="toc-section-title">Getting Started</div>
+                <div class="toc-entry"><span class="title">Introduction</span><span class="page">1</span></div>
+                <div class="toc-entry"><span class="title">Game Controls</span><span class="page">2</span></div>
+                <div class="toc-entry"><span class="title">The Story</span><span class="page">3</span></div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-section-title">Core Systems</div>
+                <div class="toc-entry"><span class="title">Combat Mechanics</span><span class="page">4</span></div>
+                <div class="toc-entry"><span class="title">Exploration & Navigation</span><span class="page">8</span></div>
+                <div class="toc-entry"><span class="title">Character Development</span><span class="page">12</span></div>
+                <div class="toc-entry"><span class="title">Skill Trees Explained</span><span class="page">16</span></div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-section-title">Characters</div>
+                <div class="toc-entry"><span class="title">Class 1-A Roster</span><span class="page">20</span></div>
+                <div class="toc-entry"><span class="title">Character Roles</span><span class="page">22</span></div>
+                <div class="toc-entry"><span class="title">Tank Characters</span><span class="page">24</span></div>
+                <div class="toc-entry"><span class="title">Damage Dealers</span><span class="page">28</span></div>
+                <div class="toc-entry"><span class="title">Scouts</span><span class="page">32</span></div>
+                <div class="toc-entry"><span class="title">Support Characters</span><span class="page">36</span></div>
+                <div class="toc-entry"><span class="title">Team-Up Attacks</span><span class="page">40</span></div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-section-title">Strategy Guide</div>
+                <div class="toc-entry"><span class="title">Early Game Tips</span><span class="page">44</span></div>
+                <div class="toc-entry"><span class="title">Mid Game Strategy</span><span class="page">46</span></div>
+                <div class="toc-entry"><span class="title">Late Game Tactics</span><span class="page">48</span></div>
+                <div class="toc-entry"><span class="title">Boss Fight Strategies</span><span class="page">50</span></div>
+                <div class="toc-entry"><span class="title">Final Boss: All For One</span><span class="page">52</span></div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-section-title">Reference</div>
+                <div class="toc-entry"><span class="title">Zone Environments</span><span class="page">54</span></div>
+                <div class="toc-entry"><span class="title">Items & Inventory</span><span class="page">56</span></div>
+                <div class="toc-entry"><span class="title">Status Effects</span><span class="page">58</span></div>
+                <div class="toc-entry"><span class="title">Achievement Guide</span><span class="page">60</span></div>
+            </div>
+        </div>
+
+        <!-- introduction section -->
+        <div class="section">
+            <h2>Introduction</h2>
+            
+            <div class="placeholder-image">
+                placeholder screenshot<br>
+                title screen with characters
+            </div>
+
+            <p>Welcome to the official player guide for <strong>Tower Descent Simulation</strong>, an immersive roguelike experience set in the My Hero Academia universe. In this challenging training exercise, you will guide the students of U.A. High School Class 1-A through 20 increasingly difficult zones as they descend into the depths of an underground facility.</p>
+
+            <p>This guide has been designed to help both new players learn the fundamentals and experienced players master advanced strategies. Whether you are attempting your first run or going for a perfect clear with zero captures, you will find valuable information within these pages.</p>
+
+            <h3>What is Tower Descent Simulation?</h3>
+            
+            <p>Tower Descent Simulation is a turn-based roguelike game where strategic decision-making and resource management are key to success. You will deploy students one at a time into procedurally generated zones, engaging in tactical combat, exploring for valuable resources, and facing powerful boss enemies.</p>
+
+            <div class="info-box">
+                <div class="box-title">🎯 Core Gameplay Loop</div>
+                <ol>
+                    <li>Select a student from Class 1-A</li>
+                    <li>Navigate through randomly generated zone rooms</li>
+                    <li>Search points of interest for items and rescued students</li>
+                    <li>Engage enemies in turn-based tactical combat</li>
+                    <li>Defeat the zone boss to progress deeper</li>
+                    <li>Repeat for 20 zones until facing the final boss</li>
+                </ol>
+            </div>
+
+            <h3>Key Features</h3>
+            
+            <ul>
+                <li><strong>21 Playable Characters</strong> - Each Class 1-A student has unique abilities, stats, and personal skills</li>
+                <li><strong>Dual Skill System</strong> - Global skills benefit everyone, personal skills provide powerful bonuses but are lost if captured</li>
+                <li><strong>Environmental Effects</strong> - Seven zone types with different effects on character performance</li>
+                <li><strong>Team-Up Attacks</strong> - 28 devastating combination attacks between Level 10+ partners</li>
+                <li><strong>Party Buff Skills</strong> - Support characters can unlock abilities that benefit the entire team</li>
+                <li><strong>Persistent Progression</strong> - Global skills and boss damage carry between attempts</li>
+                <li><strong>Adaptive Final Boss</strong> - All For One grows stronger based on how many students you lost</li>
+            </ul>
+
+            <div class="tip-box">
+                <div class="box-title">💡 First Time Players</div>
+                <p>If this is your first time playing, we recommend starting with the <strong>Game Controls</strong> section to familiarize yourself with the interface, then reading <strong>Combat Mechanics</strong> and <strong>Character Roles</strong> before beginning your first run. The early game tips in the strategy section will help you avoid common mistakes.</p>
+            </div>
+        </div>
+
+        <!-- game controls section -->
+        <div class="section">
+            <h2>Game Controls</h2>
+
+            <p>Tower Descent Simulation uses a text-based command interface. All actions are performed by typing commands and pressing Enter.</p>
+
+            <div class="placeholder-image placeholder-small">
+                placeholder screenshot<br>
+                game interface example
+            </div>
+
+            <h3>Basic Navigation</h3>
+            
+            <p>When exploring zones or navigating menus, you will see numbered options. Simply type the number corresponding to your choice and press Enter.</p>
+
+            <div class="info-box">
+                <div class="box-title">Example: Character Selection</div>
+                <pre style="background: white; padding: 15px; border: 1px solid #ddd; overflow-x: auto;">
+1. Izuku Midoriya
+2. Katsuki Bakugo
+3. Shoto Todoroki
+
+Choose your student: <span style="color: #4ecdc4;">1</span>
+                </pre>
+            </div>
+
+            <h3>Combat Commands</h3>
+            
+            <p>During combat, you will have multiple action options:</p>
+            
+            <ul>
+                <li><strong>1 - Attack:</strong> Perform a basic attack using your current attack stat</li>
+                <li><strong>2 - Quirk:</strong> Use a powerful quirk ability that costs energy</li>
+                <li><strong>3 - Item:</strong> Use an item from your shared inventory</li>
+                <li><strong>4 - Skills:</strong> Access the skill tree menu mid-combat</li>
+                <li><strong>5 - Team-Up:</strong> Execute a devastating team-up attack (requires Level 10+ partner)</li>
+                <li><strong>6 - Plus Ultra:</strong> Full HP and Energy recovery (once per zone, requires all skills maxed)</li>
+            </ul>
+
+            <div class="warning-box">
+                <div class="box-title">⚠️ Important</div>
+                <p>The Team-Up and Plus Ultra options only appear when their requirements are met. The menu will dynamically adjust based on what is available to you.</p>
+            </div>
+
+            <h3>Exploration Commands</h3>
+            
+            <p>While exploring zone rooms, you will have these options:</p>
+            
+            <ul>
+                <li><strong>Move to Adjacent Room:</strong> Type the number of the room to move there</li>
+                <li><strong>Search POI:</strong> Investigate a point of interest in your current room</li>
+                <li><strong>Rest:</strong> Restore 15 energy (once per room)</li>
+                <li><strong>Enter Boss Room:</strong> Face the zone boss when at the boss room</li>
+            </ul>
+
+            <h3>Special Commands</h3>
+            
+            <p>These commands can be used at any time:</p>
+            
+            <ul>
+                <li><strong>froppenheimer:</strong> Opens the debug menu for testing purposes</li>
+                <li><strong>back:</strong> Return to previous menu (context-dependent)</li>
+            </ul>
+
+            <h3>Auto-Save System</h3>
+            
+            <p>The game automatically saves your progress after completing each zone. Your save is stored in your browser's local storage and persists between sessions.</p>
+
+            <div class="tip-box">
+                <div class="box-title">💾 Save Management</div>
+                <ul>
+                    <li>Game auto-saves after each zone clear</li>
+                    <li>Use "Continue" button on title screen to resume</li>
+                    <li>Starting a new game will overwrite your current save</li>
+                    <li>Save data includes all character progress and global skills</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- combat mechanics section -->
+        <div class="section">
+            <h2>Combat Mechanics</h2>
+
+            <div class="placeholder-image">
+                placeholder screenshot<br>
+                combat screen showing all options
+            </div>
+
+            <p>Combat in Tower Descent Simulation is turn-based and tactical. Understanding the combat system is essential for success, especially in later zones and boss fights.</p>
+
+            <h3>Combat Flow</h3>
+            
+            <ol>
+                <li>You select an action for your character</li>
+                <li>Your action is executed (damage dealt, ability used, etc)</li>
+                <li>If enemy survives, they attack back</li>
+                <li>Turn ends, cycle repeats until combat resolves</li>
+            </ol>
+
+            <h3>Damage Calculation</h3>
+            
+            <p>Damage in combat is calculated using this formula:</p>
+            
+            <div class="info-box">
+                <div class="box-title">Damage Formula</div>
+                <p><strong>Actual Damage = max(1, Base Damage - Target Defense)</strong></p>
+                <p>Where:</p>
+                <ul>
+                    <li><strong>Base Damage</strong> = Attack stat + random variance (-3 to +5)</li>
+                    <li><strong>Target Defense</strong> = Defender's defense stat</li>
+                    <li><strong>Minimum Damage</strong> = 1 (attacks always deal at least 1 damage)</li>
+                </ul>
+            </div>
+
+            <h4>Attack Types</h4>
+            
+            <p><strong>Basic Attack:</strong> Uses your attack stat directly with slight random variance. No energy cost. Good for conserving energy against weak enemies.</p>
+            
+            <p><strong>Quirk Abilities:</strong> Powerful attacks with fixed high damage values. Cost energy to use. Each character has 2-3 unique quirk abilities with different costs and damage outputs.</p>
+
+            <div class="character-table">
+                <tr>
+                    <th>Example Quirks</th>
+                    <th>Damage</th>
+                    <th>Energy Cost</th>
+                    <th>Best Used When</th>
+                </tr>
+                <tr>
+                    <td>Detroit Smash (Midoriya)</td>
+                    <td>20 + ATK</td>
+                    <td>12</td>
+                    <td>High single-target damage</td>
+                </tr>
+                <tr>
+                    <td>Full Cowling (Midoriya)</td>
+                    <td>40 + ATK</td>
+                    <td>30</td>
+                    <td>Boss fights, emergencies</td>
+                </tr>
+                <tr>
+                    <td>AP Shot (Bakugo)</td>
+                    <td>18 + ATK</td>
+                    <td>10</td>
+                    <td>Efficient damage option</td>
+                </tr>
+            </table>
+
+            <h3>Combat Passives</h3>
+            
+            <p>Many characters have passive abilities that modify combat:</p>
+
+            <h4>Offensive Passives</h4>
+            <ul>
+                <li><strong>Mashirao Ojiro - Last Stand:</strong> 2x damage when HP ≤ 25%</li>
+                <li><strong>Katsuki Bakugo - Ambush Master:</strong> +30% damage on first strike</li>
+                <li><strong>Shoto Todoroki - Versatile Combat:</strong> +5% to all combat stats</li>
+                <li><strong>Denki Kaminari - Electric Shock:</strong> 33% chance to stun enemy on hit</li>
+            </ul>
+
+            <h4>Defensive Passives</h4>
+            <ul>
+                <li><strong>Izuku Midoriya - Defensive Instinct:</strong> 2x defense when HP ≤ 25%</li>
+                <li><strong>Eijiro Kirishima - Hardening Armor:</strong> -10% damage taken from all sources</li>
+            </ul>
+
+            <h4>Party Buff Passives (Unlockable Skills)</h4>
+            <ul>
+                <li><strong>Mina Ashido - Acid Veil:</strong> All characters -10% damage, enemies take 5% recoil</li>
+                <li><strong>Tsuyu Asui - Ribbit Recovery:</strong> All characters survive lethal damage at 1 HP</li>
+                <li><strong>Yuga Aoyama - Can't Stop Our Sparkle:</strong> All characters +5% evasion</li>
+                <li><strong>Ochaco Uraraka - Helping Hand:</strong> All students +5% evasion, +2 HP per room</li>
+            </ul>
+
+            <div class="strategy">
+                <div class="strategy-title">⚔️ Combat Strategy</div>
+                <p><strong>Early Combat:</strong> Use basic attacks to conserve energy. Save quirk abilities for when you need burst damage or are low on HP.</p>
+                <p><strong>Mid Combat:</strong> Monitor enemy HP. If they are close to death, a basic attack may finish them and save energy.</p>
+                <p><strong>Boss Combat:</strong> Do not hold back. Use your most powerful abilities. Remember that boss HP persists, so damaging them even if you lose helps future attempts.</p>
+            </div>
+
+            <h3>Special Combat Mechanics</h3>
+
+            <h4>Stun System</h4>
+            <p>When Denki Kaminari hits an enemy, there is a 33% chance to stun them. Stunned enemies skip their next turn completely, giving you a free action.</p>
+
+            <h4>Acid Counter</h4>
+            <p>When Mina Ashido has her Acid Veil skill unlocked, enemies take recoil damage when they attack anyone. This can finish off low-HP enemies.</p>
+
+            <h4>Last Stand Mechanics</h4>
+            <p>Both Ojiro and Midoriya have powerful abilities that activate when their HP drops to 25% or below. Ojiro deals double damage, while Midoriya takes half damage. Use this to turn the tide of difficult battles.</p>
+
+            <div class="warning-box">
+                <div class="box-title">⚠️ Combat Death</div>
+                <p>If a character's HP reaches 0, they are <strong>captured</strong> and removed from the roster for the rest of the run. Their personal skills are reset. The only way to recover them is to find them during POI searches in later zones.</p>
+            </div>
+        </div>
+
+        <!-- additional sections follow same pattern -->
+        <!-- for brevity showing structure only -->
+
+        <div class="section">
+            <h2>Exploration & Navigation</h2>
+            
+            <div class="placeholder-image">
+                placeholder screenshot<br>
+                zone map with rooms
+            </div>
+
+            <p>Each zone consists of multiple interconnected rooms. Your goal is to navigate to the boss room while managing resources and searching for valuable items.</p>
+
+            <h3>Zone Structure</h3>
+            
+            <p>Zones are procedurally generated with the following elements:</p>
+            <ul>
+                <li><strong>Starting Room:</strong> Where you begin each zone</li>
+                <li><strong>Standard Rooms:</strong> May contain enemies, POI, or be empty</li>
+                <li><strong>Boss Room:</strong> Contains the zone boss (marked with ⚠️)</li>
+                <li><strong>Secret Passages:</strong> Hidden connections between rooms</li>
+            </ul>
+
+            <h3>Points of Interest (POI)</h3>
+            
+            <p>POI are searchable locations within rooms. They can contain:</p>
+            
+            <ul>
+                <li><strong>Items</strong> (45% base chance) - Health Potions, Energy Drinks, equipment</li>
+                <li><strong>Enemies</strong> (25% base chance) - Combat encounters</li>
+                <li><strong>Rescued Students</strong> (5% base chance) - Recover captured allies</li>
+                <li><strong>Civilians</strong> (5% base chance) - Rescue for rewards</li>
+                <li><strong>Secret Passages</strong> (10% base chance) - Shortcuts through zones</li>
+                <li><strong>Lucky Bags</strong> (5% chance for Yaoyorozu only) - Massive rewards</li>
+            </ul>
+
+            <div class="tip-box">
+                <div class="box-title">🔍 Scout Characters Excel Here</div>
+                <p>Characters like Toru Hagakure, Tenya Iida, and Hanta Sero have passive abilities that increase POI discovery rates. Use them to find rescued students and secret passages more frequently.</p>
+            </div>
+
+            <h3>Rest System</h3>
+            
+            <p>You can rest once per room to restore 15 energy. Use this strategically before boss fights or after heavy combat.</p>
+
+            <h3>Passive Healing</h3>
+            
+            <p>Characters not currently deployed heal passively as you progress:</p>
+            
+            <div class="info-box">
+                <div class="box-title">Healing Formula</div>
+                <p><strong>HP per Room = 1 + (Vitality Global Skill / 15)</strong></p>
+                <p>With Ochaco Uraraka deployed: <strong>+2 additional HP per room</strong></p>
+            </div>
+        </div>
+
+        <!-- character roster section -->
+        <div class="section">
+            <h2>Class 1-A Roster</h2>
+
+            <p>All 21 students of Class 1-A are available to deploy (20 initially, Hitoshi Shinso unlocks in Zone 3+). Each has unique stats, abilities, and specializations.</p>
+
+            <div class="placeholder-image">
+                placeholder artwork<br>
+                full class 1a group shot
+            </div>
+
+            <h3>Character Roles Overview</h3>
+
+            <p>Characters are divided into four primary roles:</p>
+
+            <div class="character-table">
+                <tr>
+                    <th>Role</th>
+                    <th>Purpose</th>
+                    <th>Count</th>
+                    <th>Key Characters</th>
+                </tr>
+                <tr>
+                    <td class="role-tank">TANKS</td>
+                    <td>High survivability, frontline fighters</td>
+                    <td>5</td>
+                    <td>Kirishima, Todoroki, Midoriya</td>
+                </tr>
+                <tr>
+                    <td class="role-damage">DAMAGE</td>
+                    <td>High attack, end fights quickly</td>
+                    <td>5</td>
+                    <td>Sato, Bakugo, Ojiro</td>
+                </tr>
+                <tr>
+                    <td class="role-scout">SCOUTS</td>
+                    <td>POI discovery, rescue missions</td>
+                    <td>5</td>
+                    <td>Hagakure, Iida, Sero</td>
+                </tr>
+                <tr>
+                    <td class="role-support">SUPPORT</td>
+                    <td>Buffs, healing, utility</td>
+                    <td>5</td>
+                    <td>Uraraka, Asui, Mina, Momo</td>
+                </tr>
+            </table>
+
+            <h3>Global Skill Specializations</h3>
+
+            <p>Each character has multipliers for global skills. Some characters are Masters (2.5x or higher) in specific areas:</p>
+
+            <h4>Ultimate Tier</h4>
+            <ul>
+                <li><strong>Rikido Sato:</strong> 3.5x Strength (HIGHEST IN GAME)</li>
+            </ul>
+
+            <h4>Master Tier (2.5x)</h4>
+            <ul>
+                <li><strong>Eijiro Kirishima:</strong> Defense Master</li>
+                <li><strong>Toru Hagakure:</strong> Evasion Master</li>
+                <li><strong>Tenya Iida:</strong> Speed Master (Evasion)</li>
+                <li><strong>Ochaco Uraraka:</strong> Evasion Master + Support bonuses</li>
+            </ul>
+
+            <div class="tip-box">
+                <div class="box-title">💡 Specialization Strategy</div>
+                <p>When upgrading global skills, consider who is deployed. If Sato is your current character, upgrading Strength gives him a massive boost. If Kirishima is deployed, upgrading Defense is extremely efficient. Plan your skill point spending around your active character's specializations.</p>
+            </div>
+        </div>
+
+        <!-- boss strategies section -->
+        <div class="section">
+            <h2>Boss Fight Strategies</h2>
+
+            <div class="placeholder-image">
+                placeholder screenshot<br>
+                boss encounter dramatic moment
+            </div>
+
+            <p>Boss fights occur every 5 zones and at zone 20 (final boss). These encounters are significantly harder than regular combat.</p>
+
+            <h3>Boss Mechanics</h3>
+
+            <ul>
+                <li><strong>Persistent HP:</strong> Boss health carries over between attempts</li>
+                <li><strong>Higher Stats:</strong> Bosses have 2-3x the HP of regular enemies</li>
+                <li><strong>Scaling Difficulty:</strong> Stats increase with zone number</li>
+                <li><strong>Strategic Deployment:</strong> You can retreat and switch characters</li>
+            </ul>
+
+            <h3>Preparation Tips</h3>
+
+            <div class="strategy">
+                <div class="strategy-title">🎯 Pre-Boss Checklist</div>
+                <ol>
+                    <li><strong>Heal Up:</strong> Use health potions to get deployed character to full HP</li>
+                    <li><strong>Restore Energy:</strong> Rest in the room before boss if possible</li>
+                    <li><strong>Check Inventory:</strong> Ensure you have emergency items</li>
+                    <li><strong>Review Skills:</strong> Spend any available skill points</li>
+                    <li><strong>Character Choice:</strong> Consider deploying a tank for safety or damage dealer to finish quickly</li>
+                </ol>
+            </div>
+
+            <h3>Multi-Attempt Strategy</h3>
+
+            <p>Because boss HP persists, you can employ a "chip damage" strategy:</p>
+
+            <ol>
+                <li><strong>First Attempt:</strong> Deploy a high-damage character (Sato, Bakugo) to deal massive damage</li>
+                <li><strong>Second Attempt:</strong> If first character falls, deploy a tank (Kirishima, Todoroki) to finish the weakened boss safely</li>
+            </ol>
+
+            <h3>Final Boss: All For One</h3>
+
+            <p>The final boss at zone 20 is unique and adaptive:</p>
+
+            <div class="warning-box">
+                <div class="box-title">⚠️ Adaptive Difficulty</div>
+                <p><strong>All For One grows stronger based on captured students:</strong></p>
+                <ul>
+                    <li>Base Stats: 200 HP, 20 ATK, 10 DEF</li>
+                    <li>Per Captured Student: +50 HP, +5 ATK, +2 DEF</li>
+                    <li>He gains the quirks of captured students (flavor text)</li>
+                </ul>
+                <p><strong>Perfect Run (0 captures):</strong> Much easier fight with special recognition</p>
+            </div>
+
+            <h4>All For One Strategy</h4>
+
+            <ol>
+                <li><strong>Bring Your Best:</strong> Deploy your highest-level, most-equipped character</li>
+                <li><strong>Use Team-Ups:</strong> If you have Level 10+ partners available, use team-up attacks</li>
+                <li><strong>Plus Ultra Ready:</strong> Have at least one character with Plus Ultra unlocked</li>
+                <li><strong>Save Party Buffs:</strong> If Asui has Ribbit Recovery, she provides a safety net</li>
+            </ol>
+        </div>
+
+        <!-- strategy guide section -->
+        <div class="section">
+            <h2>Early Game Tips (Zones 1-7)</h2>
+
+            <h3>First Zone Priority</h3>
+
+            <p>Your first zone sets the foundation for your entire run:</p>
+
+            <ol>
+                <li><strong>Deploy a Balanced Character:</strong> Midoriya or Todoroki are excellent first choices</li>
+                <li><strong>Invest in Global Skills:</strong> Put your first skill points into Strength or HP</li>
+                <li><strong>Learn Combat Flow:</strong> Practice basic attack vs quirk ability timing</li>
+                <li><strong>Search Everything:</strong> POI searches give valuable items early</li>
+            </ol>
+
+            <h3>Skill Point Strategy</h3>
+
+            <div class="strategy">
+                <div class="strategy-title">📊 Early Skill Distribution</div>
+                <p><strong>Recommended Split (First 10 Points):</strong></p>
+                <ul>
+                    <li>4 points in Strength (permanent damage boost)</li>
+                    <li>3 points in Vitality (more HP for everyone)</li>
+                    <li>2 points in Defense (survivability)</li>
+                    <li>1 point in Stamina (energy pool)</li>
+                </ul>
+                <p><strong>Why this works:</strong> Focuses on survivability and consistent damage. Evasion becomes more valuable later when you understand combat flow.</p>
+            </div>
+
+            <h3>Character Rotation</h3>
+
+            <p>Do not over-rely on one character early on:</p>
+
+            <ul>
+                <li>Deploy different characters to level them evenly</li>
+                <li>Use scouts (Hagakure, Iida) for exploration-heavy zones</li>
+                <li>Save your strongest for boss zones (5, 10, 15, 20)</li>
+            </ul>
+
+            <h3>Avoid These Mistakes</h3>
+
+            <div class="warning-box">
+                <div class="box-title">❌ Common Early Errors</div>
+                <ul>
+                    <li><strong>Hoarding Items:</strong> Use health potions when needed, do not save for later</li>
+                    <li><strong>Ignoring Personal Skills:</strong> They are powerful early, just remember the risk</li>
+                    <li><strong>Rushing Bosses:</strong> Take time to prepare, rest, and equip properly</li>
+                    <li><strong>Deploying Randomly:</strong> Match character to zone type (Asui in water zones, etc)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- reference section -->
+        <div class="section">
+            <h2>Zone Environments</h2>
+
+            <p>There are 7 zone environment types. Each affects certain characters differently:</p>
+
+            <div class="character-table">
+                <tr>
+                    <th>Environment</th>
+                    <th>Frequency</th>
+                    <th>Boosted Characters</th>
+                    <th>Penalized Characters</th>
+                </tr>
+                <tr>
+                    <td>Forest</td>
+                    <td>Standard zones</td>
+                    <td>Tsuyu Asui</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Flashfire City</td>
+                    <td>Standard zones</td>
+                    <td>Katsuki Bakugo</td>
+                    <td>Tsuyu Asui</td>
+                </tr>
+                <tr>
+                    <td>Urban Ruins</td>
+                    <td>Standard zones</td>
+                    <td>Hanta Sero</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Lake/Water</td>
+                    <td>Every 5th zone</td>
+                    <td>Tsuyu Asui</td>
+                    <td>Bakugo, Kaminari</td>
+                </tr>
+                <tr>
+                    <td>Mountain</td>
+                    <td>Every 5th zone</td>
+                    <td>Mashirao Ojiro</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Blizzard</td>
+                    <td>Every 5th zone</td>
+                    <td>Shoto Todoroki</td>
+                    <td>Tsuyu Asui</td>
+                </tr>
+                <tr>
+                    <td>Underground</td>
+                    <td>Every 5th zone</td>
+                    <td>Fumikage Tokoyami</td>
+                    <td>Toru Hagakure</td>
+                </tr>
+            </table>
+
+            <div class="tip-box">
+                <div class="box-title">🌍 Zone Planning</div>
+                <p>Check the zone description when deploying. If you see "frozen tundra", deploy Todoroki for bonuses. If you see "blazing inferno", avoid deploying Asui. Smart deployment maximizes your chances of success.</p>
+            </div>
+        </div>
+
+        <!-- achievement guide -->
+        <div class="section">
+            <h2>Achievement Guide</h2>
+
+            <p>While there are no formal achievements in-game, players often set personal challenges:</p>
+
+            <h3>Challenge Runs</h3>
+
+            <div class="character-table">
+                <tr>
+                    <th>Challenge</th>
+                    <th>Difficulty</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Perfect Run</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>Clear all 20 zones with 0 captures</td>
+                </tr>
+                <tr>
+                    <td>Solo Hero</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>Use only one character for entire run</td>
+                </tr>
+                <tr>
+                    <td>Speedrun</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>Complete in minimum rooms cleared</td>
+                </tr>
+                <tr>
+                    <td>Support Squad</td>
+                    <td>⭐⭐⭐</td>
+                    <td>Only use Support role characters</td>
+                </tr>
+                <tr>
+                    <td>No Global Skills</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>Do not spend any global skill points</td>
+                </tr>
+                <tr>
+                    <td>Team-Up Master</td>
+                    <td>⭐⭐</td>
+                    <td>Execute all 28 team-up attacks in one run</td>
+                </tr>
+            </table>
+
+            <h3>Personal Bests</h3>
+
+            <p>Track these stats to measure improvement:</p>
+            <ul>
+                <li>Lowest capture count</li>
+                <li>Highest character level reached</li>
+                <li>Most zones cleared in single session</li>
+                <li>Fastest boss defeat times</li>
+            </ul>
+        </div>
+
+        <!-- closing section -->
+        <div class="section">
+            <h2>Closing Notes</h2>
+
+            <div class="placeholder-image">
+                placeholder artwork<br>
+                class 1a victory pose
+            </div>
+
+            <h3>Thank You</h3>
+
+            <p>Thank you for reading this official player guide for Tower Descent Simulation. We hope this guide helps you achieve victory and master all aspects of the game.</p>
+
+            <h3>Updates & Community</h3>
+
+            <p>This guide reflects version 1.0 of the game. Future updates may add new features, characters, or mechanics. Check the game's website for the latest information.</p>
+
+            <h3>Credits</h3>
+
+            <p><strong>Game Design & Development:</strong> TsuMePlz</p>
+            <p><strong>Inspired By:</strong> My Hero Academia by Kohei Horikoshi</p>
+            <p><strong>Guide Author:</strong> TsuMePlz</p>
+
+            <div class="info-box" style="margin-top: 60px;">
+                <div class="box-title">💾 Final Reminder</div>
+                <p>The game auto-saves after each zone. You can safely close your browser and return later using the Continue button. Your progress is never lost!</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 80px; padding: 40px; background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); color: #d4af37;">
+                <h2 style="font-size: 2.5em; margin-bottom: 20px;">Plus Ultra!</h2>
+                <p style="font-size: 1.3em; color: #4ecdc4;">Go beyond your limits and achieve victory</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

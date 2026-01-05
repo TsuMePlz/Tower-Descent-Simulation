@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Descent Simulation - Official Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 450px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            margin: 0 auto;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* for larger screens maintain 9:16 ratio */
+        @media (min-height: 900px) {
+            .page-container {
+                max-width: 540px;
+            }
+        }
+
+        /* full width on mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 0;
+            }
+            
+            .page-container {
+                max-width: 100%;
+            }
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            border-bottom: 3px solid #e94560;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .author {
+            font-size: 1em;
+            color: #aaa;
+        }
+
+        .author .by {
+            color: #ffd700;
+        }
+
+        .author .name {
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: #16213e;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .screenshot-container {
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background: repeating-linear-gradient(
+                45deg,
+                #2a2a3e,
+                #2a2a3e 20px,
+                #3a3a4e 20px,
+                #3a3a4e 40px
+            );
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+        }
+
+        .hero-text {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .tip-section {
+            background: #0f1419;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #2a3f5f;
+        }
+
+        .tip-text {
+            color: #4ecdc4;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .play-button {
+            display: block;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #e94560, #d63450);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+
+        .play-button.secondary {
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            border: 2px solid #e94560;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #2a3f5f;
+        }
+
+        .feature-card h3 {
+            color: #4ecdc4;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            line-height: 1.8;
+        }
+
+        .feature-card li:before {
+            content: "→ ";
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .info-section {
+            background: #16213e;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .info-section h2 {
+            color: #ffd700;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .info-section p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .spec-item {
+            background: #0f1419;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .spec-item .number {
+            font-size: 2.5em;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .spec-item .label {
+            color: #4ecdc4;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 2px solid #2a3f5f;
+            margin-top: 60px;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .play-button {
+                display: block;
+                margin: 10px auto;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="container">
+            <header>
+                <h1>Tower Descent Simulation</h1>
+                <p class="subtitle">U.A. High School Training Exercise</p>
+                <p class="author"><span class="by">by:</span> <span class="name">TsuMePlz</span></p>
+            </header>
+
+        <div class="hero">
+            <h2 style="color: #ffd700; font-size: 1.5em; margin-bottom: 15px; text-align: center; line-height: 1.2;">Deploy Your Heroes. Descend The Tower</h2>
+            <p style="font-size: 1em; margin-bottom: 20px; text-align: center; line-height: 1.6;">
+                Guide Class 1-A through 20 perilous zones in this strategic roguelike adventure. 
+                Every decision matters. Every hero counts.
+            </p>
+
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="button-group">
+                        <a href="/game" class="play-button">▶ PLAY NOW</a>
+                        <a href="/player_guide/player_guide.html" class="play-button secondary">📖 PLAYER GUIDE</a>
+                    </div>
+
+                    <div class="tip-section">
+                        <div class="tip-text">🐸 Tips Are Appreciated! 🐸</div>
+                        <img src="tip.jpeg" alt="Tip QR Code" class="qr-code">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="specs">
+            <div class="spec-item">
+                <div class="number">21</div>
+                <div class="label">Playable Characters</div>
+            </div>
+            <div class="spec-item">
+                <div class="number">20</div>
+                <div class="label">Challenging Zones</div>
+            </div>
+            <div class="spec-item">
+                <div class="number">28</div>
+                <div class="label">Team-Up Attacks</div>
+            </div>
+            <div class="spec-item">
+                <div class="number">∞</div>
+                <div class="label">Replayability</div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>⚔️ Tactical Combat</h3>
+                <ul>
+                    <li>Turn-based strategic battles</li>
+                    <li>Unique quirk abilities per character</li>
+                    <li>Team-up attacks for massive damage</li>
+                    <li>Boss fights with persistent HP</li>
+                    <li>Adaptive final boss</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🎯 Strategic Depth</h3>
+                <ul>
+                    <li>Dual skill system (global + personal)</li>
+                    <li>Character specializations</li>
+                    <li>Zone environmental effects</li>
+                    <li>Resource management</li>
+                    <li>Risk vs reward decisions</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🗺️ Procedural Zones</h3>
+                <ul>
+                    <li>Randomly generated layouts</li>
+                    <li>Search for items and survivors</li>
+                    <li>Rescue captured students</li>
+                    <li>Discover secret passages</li>
+                    <li>Multiple zone types</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>📊 Character Roles</h3>
+                <ul>
+                    <li>Tanks - High survivability</li>
+                    <li>Damage - Devastating attacks</li>
+                    <li>Scouts - Exploration experts</li>
+                    <li>Support - Party buffs</li>
+                    <li>Balanced - All-rounders</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>💾 Quality of Life</h3>
+                <ul>
+                    <li>Auto-save after each zone</li>
+                    <li>In-game tutorial</li>
+                    <li>Mobile-friendly interface</li>
+                    <li>No installation required</li>
+                    <li>Play in browser</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🏆 Replayability</h3>
+                <ul>
+                    <li>Multiple viable strategies</li>
+                    <li>Perfect run challenge</li>
+                    <li>Different team compositions</li>
+                    <li>Unlock hidden character</li>
+                    <li>Randomized encounters</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>About the Game</h2>
+            <p>
+                <strong>Tower Descent Simulation</strong> is a strategic roguelike game inspired by My Hero Academia. 
+                Take command of U.A. High School's Class 1-A as they navigate through a treacherous underground 
+                training facility spanning 20 increasingly difficult zones.
+            </p>
+            <p>
+                Deploy students strategically, manage resources carefully, and make split-second tactical decisions 
+                in turn-based combat. Every character has unique abilities, strengths, and weaknesses. Zone 
+                environments affect character performance - fire zones boost Bakugo but weaken Asui, while 
+                underwater areas reverse these effects.
+            </p>
+            <p>
+                The deeper you descend, the more challenging it becomes. Boss fights await at critical junctures, 
+                and the final encounter with All For One adapts based on your performance - he grows stronger 
+                with every student you lose.
+            </p>
+            <p>
+                Can you guide all 21 students safely to the bottom? Or will casualties mount as the pressure increases? 
+                The choice is yours, hero.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <h2>How to Play</h2>
+            <p><strong>Objective:</strong> Descend through all 20 zones and defeat All For One at the bottom.</p>
+            
+            <p><strong>Gameplay Loop:</strong></p>
+            <ul style="margin-left: 30px; line-height: 2;">
+                <li>Select a student to deploy into the current zone</li>
+                <li>Navigate through procedurally generated rooms</li>
+                <li>Search points of interest for items, survivors, and secrets</li>
+                <li>Engage in tactical turn-based combat</li>
+                <li>Defeat the zone boss to progress deeper</li>
+                <li>Repeat until you reach the final boss</li>
+            </ul>
+
+            <p><strong>Key Systems:</strong></p>
+            <ul style="margin-left: 30px; line-height: 2;">
+                <li><strong>Global Skills:</strong> Permanent upgrades that benefit all characters</li>
+                <li><strong>Personal Skills:</strong> Powerful character-specific bonuses (lost if captured)</li>
+                <li><strong>Capture System:</strong> Fallen students can be rescued in later zones</li>
+                <li><strong>Passive Healing:</strong> Benched characters heal while others fight</li>
+                <li><strong>Team-Ups:</strong> Devastating combination attacks at Level 10+</li>
+                <li><strong>Plus Ultra:</strong> Emergency full recovery (once per zone)</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h2>System Requirements</h2>
+            <p><strong>Platform:</strong> Web Browser (Desktop & Mobile)</p>
+            <p><strong>Browser:</strong> Chrome, Firefox, Safari, Edge (modern versions)</p>
+            <p><strong>Connection:</strong> Internet required for initial load only</p>
+            <p><strong>Storage:</strong> ~5KB for save data (localStorage)</p>
+            <p><strong>Controls:</strong> Keyboard/Mouse or Touch Screen</p>
+            <p><strong>Screen:</strong> Optimized for 9:16 aspect ratio (mobile-friendly)</p>
+        </div>
+
+        <div style="text-align: center; margin: 60px 0;">
+            <a href="/game" class="play-button" style="font-size: 2em;">🎮 START YOUR DESCENT</a>
+        </div>
+
+        <footer>
+            <p><strong>Tower Descent Simulation</strong></p>
+            <p>A fan-made roguelike inspired by My Hero Academia</p>
+            <p style="margin-top: 20px;">Game Design & Development: <span style="color: #4ecdc4;">TsuMePlz</span></p>
+            <p>Inspired by the manga/anime by Kohei Horikoshi</p>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                This is a non-commercial fan project. All characters and concepts belong to their respective owners.
+            </p>
+        </footer>
+    </div>
+    </div>
+</body>
+</html>
