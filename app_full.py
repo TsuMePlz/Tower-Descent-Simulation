@@ -70,6 +70,13 @@ def tip_image():
     """Serve the tip QR code image"""
     return send_from_directory('.', 'tip.jpeg')
 
+@app.route('/player_guide')
+@app.route('/player_guide/')
+@app.route('/player_guide/player_guide.html')
+def player_guide():
+    """Serve the player guide"""
+    return send_from_directory('player_guide', 'player_guide.html')
+
 @app.route('/game')
 def index():
     """Serve the main game page"""
